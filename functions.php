@@ -102,8 +102,8 @@ class PHPMonitoring {
     ){
       throw new Exception('alert not configured');
     }
-    foreach ($p->getServices() as $service){
-      $body .= $p->printService($service);
+    foreach ($this->getServices() as $service){
+      $body .= $this->printService($service);
     }
     $result = mail(
       $this->config['alert']['to'],
