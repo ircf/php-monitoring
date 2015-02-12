@@ -115,7 +115,6 @@ class PHPMonitoring {
     }
     $this->mail($this->config['alert']);
     touch($this->getAlertFilePath());
-    return $result;
   }
   
   /**
