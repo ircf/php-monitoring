@@ -4,10 +4,14 @@
  */
  
 $config = array(
+  'timeout' => 2,
   'services' => array(
-    // TODO
+    // 'www.example.tld:80',
+    // 'pop.example.tld:110',
+    // 'smtp.example.tld:25',
   ),
   'alert' => array(
-    // TODO
+    // 'subject' => 'PHP monitoring alert',
+    // 'to' => 'admin@example.tld',
   ),
 );
