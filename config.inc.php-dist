@@ -1,0 +1,13 @@
+<?php
+/**
+ * PHP monitoring configuration script
+ */
+ 
+$config = array(
+  'services' => array(
+    // TODO
+  ),
+  'alert' => array(
+    // TODO
+  ),
+);

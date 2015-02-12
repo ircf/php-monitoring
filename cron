@@ -1,0 +1,5 @@
+#
+# PHP monitoring cron script
+# To install this script please see README.md
+#
+* * * * * /bin/php /opt/php-monitoring/cron.php &> /var/log/php-monitoring.log
