@@ -11,7 +11,14 @@ $config = array(
     // 'smtp.example.tld:25',
   ),
   'alert' => array(
-    // 'subject' => 'PHP monitoring alert',
-    // 'to' => 'admin@example.tld',
+    // 'factory' => 'smtp',
+    // 'parameters' => array(
+    //    'host' => 'smtp.example.tld'
+    //  ),
+    // 'headers' => array(
+    //    'From' => 'monitoring@example.tld',
+    //    'To' => 'admin@example.tld',
+    //    'Subject' => 'PHP monitoring alert',
+    // ),
   ),
 );

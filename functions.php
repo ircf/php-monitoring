@@ -5,6 +5,7 @@
 
 class PHPMonitoring {
 
+  const ALERT_FILE = 'alert.lock';
   const CONFIG_FILE = 'config.inc.php';
   const ERROR_LOG = '/var/log/php-monitoring.log';
   var $config;
@@ -16,11 +17,10 @@ class PHPMonitoring {
     ini_set('log_errors', 1);
     ini_set('error_log', self::ERROR_LOG);
     global $config;
-    $config_file = dirname(__FILE__) . '/' . self::CONFIG_FILE;
-    if (!file_exists($config_file)){
-      throw new Exception("config file $config_file not found");
+    if (!file_exists($this->getConfigFilePath())){
+      throw new Exception("config file {$this->getConfigFilePath()} not found");
     }
-    require_once $config_file;
+    require_once $this->getConfigFilePath();
     $this->config = $config;
     $this->config['results'] = array();
   }
@@ -92,7 +92,7 @@ class PHPMonitoring {
   }
   
   /**
-   * Send a mail alert
+   * Send a mail alert once per day
    */
   function alert(){
     if (
@@ -102,19 +102,50 @@ class PHPMonitoring {
     ){
       throw new Exception('alert not configured');
     }
-    $body = '';
+    if (file_exists($this->getAlertFilePath())){
+      if (date('d', filemtime($this->getAlertFilePath())) != date('d')){
+        unlink($this->getAlertFilePath());
+      }else{
+        return;
+      }
+    }
+    $this->config['alert']['body'] = '';
     foreach ($this->getServices() as $service){
-      $body .= $this->printService($service);
+      $this->config['alert']['body'] .= $this->printService($service);
     }
-    $result = mail(
-      $this->config['alert']['to'],
-      $this->config['alert']['subject'],
-      $body
-    );
-    if (!$result){
-      $this->error('could not send alert');
-    }
+    $this->mail($this->config['alert']);
+    touch($this->getAlertFilePath());
     return $result;
+  }
+  
+  /**
+   * Send a mail using PHP PEAR library
+   */
+  function mail($opts = array()){
+    if (!isset($opts['factory'])) throw new Exception('mail factory not set');
+    if (!isset($opts['parameters'])) throw new Exception('mail parameters not set');
+    if (!isset($opts['headers'])) throw new Exception('mail headers not set');
+    if (!isset($opts['body'])) throw new Exception('mail body not set');
+    require_once('Mail.php');
+    $mail =& Mail::factory($opts['factory'], $opts['parameters']);
+    $mail->send($opts['headers']['To'], $opts['headers'], $opts['body']);
+    if (PEAR::isError($mail)) {
+      throw new Exception($mail->getMessage());
+    }
+  }
+  
+  /**
+   * Get config file path
+   */
+  function getConfigFilePath(){
+    return dirname(__FILE__) . '/' . self::CONFIG_FILE;
+  }
+  
+  /**
+   * Get alert file path
+   */
+  function getAlertFilePath(){
+    return dirname(__FILE__) . '/' . self::ALERT_FILE;
   }
   
   /**
