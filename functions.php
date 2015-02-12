@@ -102,6 +102,7 @@ class PHPMonitoring {
     ){
       throw new Exception('alert not configured');
     }
+    $body = '';
     foreach ($this->getServices() as $service){
       $body .= $this->printService($service);
     }
