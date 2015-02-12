@@ -16,10 +16,11 @@ class PHPMonitoring {
     ini_set('log_errors', 1);
     ini_set('error_log', self::ERROR_LOG);
     global $config;
-    if (!file_exists(self::CONFIG_FILE)){
-      throw new Exception('config file not found');
+    $config_file = dirname(__FILE__) . '/' . self::CONFIG_FILE;
+    if (!file_exists($config_file)){
+      throw new Exception("config file $config_file not found");
     }
-    require_once self::CONFIG_FILE;
+    require_once $config_file;
     $this->config = $config;
     $this->config['results'] = array();
   }
