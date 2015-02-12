@@ -4,9 +4,7 @@ A simple PHP script to monitor network services
 # Install
 ```
 cd /opt
-wget http://github.com/ircf/php-monitoring/archive/master.zip
-gunzip master.zip
-cd php-monitoring
+git clone git@github.com:ircf/php-monitoring.git
 ```
 
 # Configure services and alert
@@ -14,7 +12,7 @@ cd php-monitoring
 cd /opt/php-monitoring
 cp config.inc.php-dist config.inc.php
 nano config.inc.php
-# Enter the service names, IP, alert method, and save file
+# Enter services, alert and save file
 ```
 
 # Configure cron
