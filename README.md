@@ -17,7 +17,7 @@ nano config.inc.php
 
 # Configure cron
 ```
-ln -s cron /etc/cron.d/php-monitoring
+ln -s /opt/php-monitoring/cron /etc/cron.d/php-monitoring
 ```
 
 # View services statuses
