@@ -13,7 +13,10 @@ $config = array(
   'alert' => array(
     // 'factory' => 'smtp',
     // 'parameters' => array(
-    //    'host' => 'smtp.example.tld'
+    //    'host' => 'smtp.example.tld',
+    //    'auth' => false,
+    //    'username' => '',
+    //    'password' => '', 
     //  ),
     // 'headers' => array(
     //    'From' => 'monitoring@example.tld',
