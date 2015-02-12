@@ -118,7 +118,7 @@ class PHPMonitoring {
   }
   
   /**
-   * Send a mail using PHP PEAR library
+   * FIXME Send a mail using PHP PEAR library
    */
   function mail($opts = array()){
     if (!isset($opts['factory'])) throw new Exception('mail factory not set');
