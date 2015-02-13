@@ -59,9 +59,9 @@ class PHPMonitoring {
       $this->config['timeout']
     );
     if (!$this->config['results'][$service]['result']){
-      $this->error("$service is down ($try/{$this->opts['try']})");
-      if ($try < $this->opts['try']){
-        sleep($this->opts['timeout']);
+      $this->error("$service is down ($try/{$this->config['try']})");
+      if ($try < $this->config['try']){
+        sleep($this->config['timeout']);
         return $this->checkService($service, $try + 1);
       }
     }
