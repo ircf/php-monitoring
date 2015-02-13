@@ -103,7 +103,7 @@ class PHPMonitoring {
       throw new Exception('alert not configured');
     }
     if (file_exists($this->getAlertFilePath())){
-      if (date('d', filemtime($this->getAlertFilePath())) != date('d')){
+      if (date('H', filemtime($this->getAlertFilePath())) != date('H')){
         unlink($this->getAlertFilePath());
       }else{
         return;
