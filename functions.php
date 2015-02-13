@@ -48,7 +48,7 @@ class PHPMonitoring {
   /**
    * Check a service status
    */
-  function checkService($service){
+  function checkService($service, $try = 1){
     list($ip, $port) = explode(':', $service);
     $this->config['results'][$service] = array();
     $this->config['results'][$service]['result'] = @fsockopen(
@@ -59,7 +59,11 @@ class PHPMonitoring {
       $this->config['timeout']
     );
     if (!$this->config['results'][$service]['result']){
-      $this->error("$service is down");
+      $this->error("$service is down ($try/{$this->opts['try']})");
+      if ($try < $this->opts['try']){
+        sleep($this->opts['timeout']);
+        return $this->checkService($service, $try + 1);
+      }
     }
     return $this->config['results'][$service]['result'];
   }

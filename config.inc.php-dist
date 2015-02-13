@@ -5,6 +5,7 @@
  
 $config = array(
   'timeout' => 2,
+  'try' => 2,
   'services' => array(
     // 'www.example.tld:80',
     // 'pop.example.tld:110',
