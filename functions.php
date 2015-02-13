@@ -118,7 +118,7 @@ class PHPMonitoring {
   }
   
   /**
-   * FIXME Send a mail using PHP PEAR library
+   * Send a mail using PHP PEAR library
    */
   function mail($opts = array()){
     if (!isset($opts['factory'])) throw new Exception('mail factory not set');
@@ -127,9 +127,10 @@ class PHPMonitoring {
     if (!isset($opts['body'])) throw new Exception('mail body not set');
     require_once('Mail.php');
     $mail =& Mail::factory($opts['factory'], $opts['parameters']);
+    if (isset($opts['localhost'])) $mail->localhost = $opts['localhost'];
     $mail->send($opts['headers']['To'], $opts['headers'], $opts['body']);
     if (PEAR::isError($mail)) {
-      throw new Exception($mail->getMessage());
+      $this->error('could not sent mail : ' . $mail->getMessage());
     }
   }
   

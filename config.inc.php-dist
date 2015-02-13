@@ -11,9 +11,11 @@ $config = array(
     // 'smtp.example.tld:25',
   ),
   'alert' => array(
+    // 'localhost' => 'example.tld',
     // 'factory' => 'smtp',
     // 'parameters' => array(
     //    'host' => 'smtp.example.tld',
+    //    'port' => 25,
     //    'auth' => false,
     //    'username' => '',
     //    'password' => '', 
