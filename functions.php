@@ -23,6 +23,7 @@ class PHPMonitoring {
     require_once $this->getConfigFilePath();
     $this->config = $config;
     $this->config['results'] = array();
+    $this->checkInternet();
   }
 
   /**
@@ -42,6 +43,15 @@ class PHPMonitoring {
     }
     if ($alert){
       $this->alert();
+    }
+  }
+
+  /**
+   * Check internet connection, throws an Exception if none
+   */
+  function checkInternet(){
+    if (!$this->checkService($this->config['internet'], $this->config['try'])){
+      throw new Exception("internet ({$this->config['internet']}) is down");
     }
   }
 

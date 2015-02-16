@@ -6,6 +6,7 @@
 $config = array(
   'timeout' => 2,
   'try' => 2,
+  'internet' => 'www.google.com:80',
   'services' => array(
     // 'www.example.tld:80',
     // 'pop.example.tld:110',
