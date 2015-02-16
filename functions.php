@@ -50,6 +50,7 @@ class PHPMonitoring {
    * Check internet connection, throws an Exception if none
    */
   function checkInternet(){
+    if (!isset($this->config['internet'])) throw new Exception('internet not configured');
     if (!$this->checkService($this->config['internet'], $this->config['try'])){
       throw new Exception("internet ({$this->config['internet']}) is down");
     }
