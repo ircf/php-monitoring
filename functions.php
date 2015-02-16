@@ -51,21 +51,23 @@ class PHPMonitoring {
   function checkService($service, $try = 1){
     list($ip, $port) = explode(':', $service);
     $this->config['results'][$service] = array();
-    $this->config['results'][$service]['result'] = @fsockopen(
+    $fp = @fsockopen(
       $ip,
       $port,
       $this->config['results'][$service]['errno'],
       $this->config['results'][$service]['errstr'],
       $this->config['timeout']
     );
-    if (!$this->config['results'][$service]['result']){
+    if ($fp){
+      @fclose($fp);
+    }else{
       $this->error("$service is down ($try/{$this->config['try']})");
       if ($try < $this->config['try']){
         sleep($this->config['timeout']);
         return $this->checkService($service, $try + 1);
       }
     }
-    return $this->config['results'][$service]['result'];
+    return $this->config['results'][$service]['result'] = $fp;
   }
 
   /**
