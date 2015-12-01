@@ -1,3 +1,4 @@
 config.inc.php
 ~
 alert.lock
+error.log

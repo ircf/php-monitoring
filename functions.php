@@ -7,7 +7,7 @@ class PHPMonitoring {
 
   const ALERT_FILE = 'alert.lock';
   const CONFIG_FILE = 'config.inc.php';
-  const ERROR_LOG = '/var/log/php-monitoring.log';
+  const ERROR_LOG = 'error.log';
   var $config;
 
   /**
@@ -170,5 +170,21 @@ class PHPMonitoring {
    */
   function getServices(){
     return $this->config['services'];
+  }
+  
+  /**
+   * Get log data
+   * TODO set max lines to avoid memory limits
+   */
+  function getLogData(){
+    $data = array();
+    if (($handle = fopen(self::ERROR_LOG, 'r')) !== FALSE) {
+      while ((list($date, $time, $junk, $junk, $service) = fgetcsv($handle, 128, ' ')) !== FALSE) {
+        if (!isset($data[$service])) $data[$service] = array('name' => $service);
+        $data[$service]['data'][] = array(strtotime(ltrim($date, '[') . ' ' . $time)*1000, 1);
+      }
+      fclose($handle);
+    }
+    return array_values($data);
   }
 }
