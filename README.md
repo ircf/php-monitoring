@@ -10,7 +10,7 @@ apt-get install php5-cli php-pear && pear install Mail && pear install Net_SMTP
 ## Install
 ```
 cd /opt
-git clone git@github.com:ircf/php-monitoring.git
+git clone https://github.com/ircf/php-monitoring.git
 ```
 
 ## Configure services and alert
