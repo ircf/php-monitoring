@@ -183,6 +183,7 @@ class PHPMonitoring {
     $file->seek(max($file->key() - self::MAX_LOG_DATA, 0));
     while (!$file->eof()) {
       list($date, $time, $junk, $junk, $service) = $file->fgetcsv(' ');
+      if (!isset($service)) continue;
       if (!isset($data[$service])) $data[$service] = array('name' => $service, 'visible' => false);
       $data[$service]['data'][] = array(strtotime(ltrim($date, '[') . ' ' . substr($time,0,5))*1000, 1);
     }
