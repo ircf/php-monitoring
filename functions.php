@@ -102,10 +102,10 @@ class PHPMonitoring {
    * Message logging
    */
   function info($msg){
-    error_log(date('Y-m-d H:i:s') . ' [INFO] ' . $msg);
+    error_log('[INFO] ' . $msg);
   }
   function error($msg){
-    error_log(date('Y-m-d H:i:s') . ' [ERROR] ' . $msg);
+    error_log('[ERROR] ' . $msg);
   }
   
   /**
