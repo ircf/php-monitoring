@@ -180,7 +180,7 @@ class PHPMonitoring {
     $data = array();
     $file = new SplFileObject(self::ERROR_LOG);
     $file->seek(PHP_INT_MAX);
-    $file->seek($file->key() - self::MAX_LOG_DATA);
+    $file->seek(max($file->key() - self::MAX_LOG_DATA, 0));
     while (!$file->eof()) {
       list($date, $time, $junk, $junk, $service) = $file->fgetcsv(' ');
       if (!isset($data[$service])) $data[$service] = array('name' => $service, 'visible' => false);
