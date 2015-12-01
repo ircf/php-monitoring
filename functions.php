@@ -177,6 +177,7 @@ class PHPMonitoring {
    * Get log data
    */
   function getLogData(){
+    date_default_timezone_set('UTC');
     $data = array();
     $file = new SplFileObject(self::ERROR_LOG);
     $file->seek(PHP_INT_MAX);
