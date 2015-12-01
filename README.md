@@ -10,7 +10,7 @@ apt-get install php5-cli php-pear && pear install Mail && pear install Net_SMTP
 ## Install
 ```
 cd /opt
-git clone git@github.com:ircf/php-monitoring.git
+git clone https://github.com/ircf/php-monitoring.git
 ```
 
 ## Configure services and alert
@@ -34,4 +34,8 @@ php /opt/php-monitoring/index.php
 Or if you have a web server installed, from a web browser :
 ```
 http://example.tld/php-monitoring/index.php
+```
+You can also have graphics :
+```
+http://example.tld/php-monitoring/graph.php
 ```
