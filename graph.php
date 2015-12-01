@@ -27,7 +27,10 @@ $p = new PHPMonitoring();
             text: 'PHP monitoring graph'
           },
           xAxis: {
-            type: 'datetime'
+            type: 'datetime',
+            startOnTick: true,
+            endOnTick: true,
+            minTickInterval: 60000
           },
           yAxis: {
             title: {
@@ -35,6 +38,14 @@ $p = new PHPMonitoring();
             },
             min: 0,
             max: 1
+          },
+          plotOptions: {
+            series: {
+              pointPadding: 0,
+              groupPadding: 0,
+              borderWidth: 0,
+              shadow: false
+            }
           },
           legend: {
             layout: 'vertical',

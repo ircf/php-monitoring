@@ -8,6 +8,7 @@ class PHPMonitoring {
   const ALERT_FILE = 'alert.lock';
   const CONFIG_FILE = 'config.inc.php';
   const ERROR_LOG = 'error.log';
+  const MAX_LOG_DATA = 10000;
   var $config;
 
   /**
@@ -174,17 +175,18 @@ class PHPMonitoring {
   
   /**
    * Get log data
-   * TODO set max lines to avoid memory limits
    */
   function getLogData(){
     $data = array();
-    if (($handle = fopen(self::ERROR_LOG, 'r')) !== FALSE) {
-      while ((list($date, $time, $junk, $junk, $service) = fgetcsv($handle, 128, ' ')) !== FALSE) {
-        if (!isset($data[$service])) $data[$service] = array('name' => $service);
-        $data[$service]['data'][] = array(strtotime(ltrim($date, '[') . ' ' . $time)*1000, 1);
-      }
-      fclose($handle);
+    $file = new SplFileObject(self::ERROR_LOG);
+    $file->seek(PHP_INT_MAX);
+    $file->seek($file->key() - self::MAX_LOG_DATA);
+    while (!$file->eof()) {
+      list($date, $time, $junk, $junk, $service) = $file->fgetcsv(' ');
+      if (!isset($data[$service])) $data[$service] = array('name' => $service, 'visible' => false);
+      $data[$service]['data'][] = array(strtotime(ltrim($date, '[') . ' ' . substr($time,0,5))*1000, 1);
     }
+    ksort($data);
     return array_values($data);
   }
 }
