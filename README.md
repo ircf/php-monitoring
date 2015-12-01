@@ -35,3 +35,7 @@ Or if you have a web server installed, from a web browser :
 ```
 http://example.tld/php-monitoring/index.php
 ```
+You can also have graphics :
+```
+http://example.tld/php-monitoring/graph.php
+```
